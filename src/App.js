@@ -160,8 +160,6 @@ export default function App() {
         <div className="lights">
           <h1>{question}</h1>
           <h3>{ !answer.current ? (!timesUp ? (paused ? "🕑 Paused" : `🕑 ${time}`) : "Time's Up!") : ''}</h3>
-          <p>{points}</p>
-          <p>{answerer}</p>
         </div>
       </div> : ""}
     </>
