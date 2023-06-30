@@ -8,6 +8,8 @@ export default function App() {
   const [question, setQuestion] = useState('');
   const [timesUp, setTimeOver] = useState(false);
   const [paused, setPaused] = useState(false);  
+  const [players, setPlayers] = useState(1);
+  const [visibility, setVisibility] = useState(true);
   const answer = useRef(false);
   const count = useRef(0);
   const savedCount = useRef(0);
@@ -23,10 +25,6 @@ export default function App() {
         const intervalId = setInterval(function() {
           setTime(prevTime => prevTime - 1);
           count.current++;
-          if (count.current === 60) {
-            setTimeOver(true);
-            clearInterval(intervalId); 
-          }
           if (answer.current) {
             setQuestion(data.split('\n')[qn+4]);
             clearInterval(intervalId); 
@@ -38,12 +36,17 @@ export default function App() {
     }
   };
   const handleKeyDown = event => {
+    event.preventDefault();
     if (event.code === "Space") {
-      event.preventDefault();
       setPaused(prevPaused => !prevPaused);
     } else if (event.code === "ArrowRight") {
-      event.preventDefault();
       answer.current = true;
+    } else if (event.code === "ArrowUp") {
+      setPlayers(prevplayers => prevplayers + 1);
+    } else if (event.code === "ArrowDown") {
+      setPlayers(prevplayers => prevplayers - 1);
+    } else if (event.code === "KeyE") {
+      setVisibility(visible => !visible);
     }
   }
   useEffect(() => {
@@ -60,8 +63,24 @@ export default function App() {
         count.current = savedCount.current;
         setTime(60 - count.current);
       }
+      if (count.current >= 60) {
+        setTimeOver(true);
+      }
     }
   }, [paused, count]);
+  function renderPlayers(ppl) {
+    const divs = [];
+    console.log(ppl);
+    for (let i = 0; i < ppl; i++) {
+      divs.push(
+        <div className="player">
+          <h2>Player {i+1}</h2>
+          <p className="point">0</p>
+        </div>
+      );
+    }
+    return divs;
+  }
   const renderTable = () => {
     const points = [100, 200, 400, 800, 1000];
     const rows = [];
@@ -102,11 +121,16 @@ export default function App() {
         </thead>
         <tbody>{renderTable()}</tbody>
       </table>
+      {visibility ?
+      <div className="players">
+        {renderPlayers(players)}
+      </div>
+      : ''}
       {showcased ?   
       <div className="screen">
         <div className="lights">
           <h1>{question}</h1>
-          <h3>{!timesUp ? (paused ? "🕑 Paused" : ( answer.current ? '' : `🕑 ${time}`)) : "Time's Up!"}</h3>
+          <h3>{ !answer.current ? (!timesUp ? (paused ? "🕑 Paused" : `🕑 ${time}`) : "Time's Up!") : ''}</h3>
         </div>
       </div> : ""}
     </>
