@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+.header {
+  margin: 15px;
+  background-color: #FF5733;
+  border-radius: 25px;
+  text-align: center;
+  padding: 15px;
+  color: #FFC300;
+  box-shadow: 0 0 15px #fa441b;
+}
+
+.lights {
+  border: 15px dotted #FFFF00;
+  filter: drop-shadow(0 0 5px yellow);
+}
+
+.header h1 {
+  margin: 5px;
+  color: #FFFFFF;
+  font-size: 3em;
+}
+
+table {
+  width: calc(100% - 30px);
+  margin: 15px;
+}
+th, button {
+  text-align: center;
+  color: white;
+  padding: 20px;
+  font-size: 30px;
+  background-color: red;
+  font-family: 'Bangers', cursive;
+}
+button {
+  width: 100%;
+}
+table, button {
+  text-shadow: 0px 0px 5px whitesmoke;
+}
+button:hover {
+  cursor: pointer;
+  text-shadow: 2px 2px 10px whitesmoke;
+  background-color: #fa3d37;
+}
+.start {
+  position: fixed; 
+  animation: down 0.5s 1 ease-in-out;
+  animation-fill-mode: forwards;
+}
+.screen {
+  position: fixed;
+  margin: 50px;
+  background-color: #FF5733;
+  border-radius: 25px;
+  text-align: center;
+  padding: 15px;
+  color: white;
+  animation: up2 1s 1 ease-in-out;
+  box-shadow: 0 0 15px #fa441b;
+  animation-fill-mode: forwards;
+  width: calc(100% - 130px);
+}
+.start2 {
+  position: fixed;
+  animation: up 1s 1 ease-in-out;
+  animation-fill-mode: forwards;
+  width: calc(100% - 60px);
+}
+@keyframes down {
+  0% {
+    top: 50%;
+  }
+  100% {
+    top: 100%;
+  }
+}
+@keyframes up {
+  0% {
+    bottom: 80%;
+  }
+  100% {
+    bottom: 100%;
+  }
+}
+@keyframes up2 {
+  0% {
+    bottom: 0%;
+  }
+  100% {
+    bottom: 40%;
+  }
+}
