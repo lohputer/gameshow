@@ -96,6 +96,7 @@ button:hover {
   border: 5px solid black;
   display: inline-block;
   font-size: 30px;
+  transition: all 0.1s linear;
 }
 .player:nth-of-type(3n-2), .player:nth-of-type(3n-2) input {
   background-color: #f72f2f;

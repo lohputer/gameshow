@@ -12,7 +12,7 @@ export default function App() {
   const [visibility, setVisibility] = useState(true);
   const [answerer, setAnswerer] = useState(null);
   const [points, setPoints] = useState([0]);
-  var chosen = 0;
+  const chosen = useRef(0);
   const normalPoints = [100, 200, 400, 800, 1000];
   const answer = useRef(false);
   const count = useRef(0);
@@ -22,7 +22,7 @@ export default function App() {
       const response = await fetch(`${process.env.PUBLIC_URL}/cat${cat}.txt`);
       const data = await response.text();
       const line = data.split('\n')[qn-1];
-      chosen = qn - 1;
+      chosen.current = qn - 1;
       setQuestion(line);
       startQuestion(true);
       setTimeout(function() {
@@ -57,7 +57,27 @@ export default function App() {
       event.preventDefault();
       setVisibility(visible => !visible);
     } else if (event.code === "Equal") {
-      setPoints(pointlist => pointlist[answerer] += normalPoints[chosen]);
+      setPoints((pointList) => {
+        const updatedPoints = [...pointList];
+        updatedPoints[answerer] += normalPoints[chosen.current];
+        document.getElementsByClassName('option')[0].style.marginTop = "-10px";
+        document.getElementsByClassName('option')[0].style.paddingBottom = "90px";
+        document.getElementsByClassName('option')[0].style.backgroundColor = "green";
+        document.getElementsByClassName('option')[1].style.marginTop = "40px";
+        document.getElementsByClassName('option')[1].style.paddingBottom = "40px";
+        return updatedPoints;
+      });
+    } else if (event.code === "Minus") {
+      setPoints((pointList) => {
+        const updatedPoints = [...pointList];
+        updatedPoints[answerer] -= normalPoints[chosen.current/2];
+        document.getElementsByClassName('option')[1].style.marginTop = "-10px";
+        document.getElementsByClassName('option')[1].style.paddingBottom = "90px";
+        document.getElementsByClassName('option')[1].style.backgroundColor = "red";
+        document.getElementsByClassName('option')[0].style.marginTop = "40px";
+        document.getElementsByClassName('option')[0].style.paddingBottom = "40px";
+        return updatedPoints;
+      });
     }
   }
   useEffect(() => {
