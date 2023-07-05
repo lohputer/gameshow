@@ -12,7 +12,7 @@ export default function App() {
   const [visibility, setVisibility] = useState(true);
   const [answerer, setAnswerer] = useState(null);
   const [points, setPoints] = useState([0]);
-  const chosen = useRef(0);
+  const chosen = useRef([0, 0]);
   const normalPoints = [100, 200, 400, 800, 1000];
   const answer = useRef(false);
   const count = useRef(0);
@@ -22,7 +22,7 @@ export default function App() {
       const response = await fetch(`${process.env.PUBLIC_URL}/cat${cat}.txt`);
       const data = await response.text();
       const line = data.split('\n')[qn-1];
-      chosen.current = qn - 1;
+      chosen.current = [cat - 1, qn - 1];
       setQuestion(line);
       startQuestion(true);
       setTimeout(function() {
@@ -59,7 +59,7 @@ export default function App() {
     } else if (event.code === "Equal") {
       setPoints((pointList) => {
         const updatedPoints = [...pointList];
-        updatedPoints[answerer] += normalPoints[chosen.current];
+        updatedPoints[answerer] += normalPoints[chosen.current[1]];
         document.getElementsByClassName('option')[0].style.marginTop = "-10px";
         document.getElementsByClassName('option')[0].style.paddingBottom = "90px";
         document.getElementsByClassName('option')[0].style.backgroundColor = "green";
@@ -70,7 +70,7 @@ export default function App() {
     } else if (event.code === "Minus") {
       setPoints((pointList) => {
         const updatedPoints = [...pointList];
-        updatedPoints[answerer] -= normalPoints[chosen.current/2];
+        updatedPoints[answerer] -= normalPoints[chosen.current[1]]/2;
         document.getElementsByClassName('option')[1].style.marginTop = "-10px";
         document.getElementsByClassName('option')[1].style.paddingBottom = "90px";
         document.getElementsByClassName('option')[1].style.backgroundColor = "red";
