@@ -62,7 +62,7 @@ export default function App() {
         updatedPoints[answerer] += normalPoints[chosen.current[1]];
         document.getElementsByClassName('option')[0].style.marginTop = "-10px";
         document.getElementsByClassName('option')[0].style.paddingBottom = "90px";
-        document.getElementsByClassName('option')[0].style.backgroundColor = "green";
+        document.getElementsByClassName('option')[0].style.backgroundColor = "#1cf211";
         document.getElementsByClassName('option')[1].style.marginTop = "40px";
         document.getElementsByClassName('option')[1].style.paddingBottom = "40px";
         return updatedPoints;
@@ -79,6 +79,15 @@ export default function App() {
         return updatedPoints;
       });
     }
+  }
+  function letanswer(player) {
+    setPaused(prevPaused => !prevPaused);
+    for (let i=0; i<document.getElementsByClassName("player").length; i++) {
+      if (i !== player) {
+        document.getElementsByClassName("player")[i].style.display = "none";
+      }
+    }
+    setAnswerer(player);
   }
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
@@ -100,15 +109,6 @@ export default function App() {
       setAnswerer(null);
     }
   }, [paused, count]);
-  function letanswer(player) {
-    setPaused(prevPaused => !prevPaused);
-    for (let i=0; i<document.getElementsByClassName("player").length; i++) {
-      if (i !== player) {
-        document.getElementsByClassName("player")[i].style.display = "none";
-      }
-    }
-    setAnswerer(player);
-  }
   function renderPlayers(ppl) {
     const divs = [];
     for (let i = points.length; i<ppl; i++) {
@@ -119,9 +119,9 @@ export default function App() {
     }
     for (let i = 0; i < ppl; i++) {
       divs.push(
-        <div className="player" onClick={() => letanswer(i)}>
+        <div className="player">
           <h2 contentEditable="true">Player {i+1}</h2>
-          <p className="point" key={i}>{points[i]}</p>
+          <p className="point" onClick={() => letanswer(i)}>{points[i]}</p>
         </div>
       );
     }
