@@ -18,6 +18,7 @@ export default function App() {
   const answer = useRef(false);
   const count = useRef(0);
   const savedCount = useRef(0);
+  const special = [Math.floor(Math.random() * 5), Math.floor(Math.random() * 5)];
   for (let i=0; i<5; i++) {
     for (let j=0; j<5; j++) {
       usedQuestions.current[i].push(false);
@@ -84,6 +85,7 @@ export default function App() {
         document.getElementsByClassName('option')[0].style.backgroundColor = "#1cf211";
         document.getElementsByClassName('option')[1].style.marginTop = "40px";
         document.getElementsByClassName('option')[1].style.paddingBottom = "40px";
+        document.getElementById('audio').src = "./public/correct.wav";
         return updatedPoints;
       });
     } else if (event.code === "Minus") {
@@ -95,6 +97,7 @@ export default function App() {
         document.getElementsByClassName('option')[1].style.backgroundColor = "red";
         document.getElementsByClassName('option')[0].style.marginTop = "40px";
         document.getElementsByClassName('option')[0].style.paddingBottom = "40px";
+        document.getElementById('audio').src = "./public/wrong.wav";
         return updatedPoints;
       });
     }
@@ -208,6 +211,7 @@ export default function App() {
           <h3>{ !answer.current ? (!timesUp ? (paused ? "🕑 Paused" : `🕑 ${time}`) : "Time's Up!") : ''}</h3>
         </div>
       </div> : ""}
+      <audio id='audio' autoPlay/>
     </>
   );
 }
