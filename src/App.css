@@ -43,6 +43,12 @@ button:hover {
   text-shadow: 2px 2px 10px whitesmoke;
   background-color: #fa3d37;
 }
+.complete {
+  background-color: #5b34f7;
+}
+.complete:hover {
+  background-color: #3300ff;
+}
 .start {
   position: fixed; 
   animation: down 0.5s 1 ease-in-out;
@@ -151,4 +157,7 @@ button:hover {
   100% {
     bottom: 40%;
   }
+}
+.category {
+  background-color: #0f06bf;
 }

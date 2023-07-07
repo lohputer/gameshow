@@ -13,16 +13,22 @@ export default function App() {
   const [answerer, setAnswerer] = useState(null);
   const [points, setPoints] = useState([0]);
   const chosen = useRef([0, 0]);
+  const usedQuestions = useRef([[], [], [], [], []]);
   const normalPoints = [100, 200, 400, 800, 1000];
   const answer = useRef(false);
   const count = useRef(0);
   const savedCount = useRef(0);
+  for (let i=0; i<5; i++) {
+    for (let j=0; j<5; j++) {
+      usedQuestions.current[i].push(false);
+    }
+  }
   const gameshow = async (cat, qn) => {
     try {
-      const response = await fetch(`${process.env.PUBLIC_URL}/cat${cat}.txt`);
+      const response = await fetch(`${process.env.PUBLIC_URL}/cat${cat+1}.txt`);
       const data = await response.text();
-      const line = data.split('\n')[qn-1];
-      chosen.current = [cat - 1, qn - 1];
+      const line = data.split('\n')[qn];
+      chosen.current = [cat, qn];
       setQuestion(line);
       startQuestion(true);
       setTimeout(function() {
@@ -31,7 +37,7 @@ export default function App() {
           setTime(prevTime => prevTime - 1);
           count.current++;
           if (answer.current) {
-            setQuestion(data.split('\n')[qn+4]);
+            setQuestion(data.split('\n')[qn+5]);
             clearInterval(intervalId); 
           }
           if (count.current >= 60) {
@@ -48,7 +54,20 @@ export default function App() {
       event.preventDefault();
       setPaused(prevPaused => !prevPaused);
     } else if (event.code === "ArrowRight") {
-      answer.current = true;
+      if (answer.current) {
+        document.getElementsByClassName("screen")[0].style.animation = "down 0.5s 1 ease-in-out";
+        setTimeout(()=>{
+          showcaseQuestion(false);
+          startQuestion(false);
+          usedQuestions.current[chosen.current[0]][chosen.current[1]] = true;
+          count.current = 0;
+          savedCount.current = 0;
+          setTime(60 - count.current);
+          answer.current = false;
+        }, 500);
+      } else {
+        answer.current = true;
+      }
     } else if (event.code === "ArrowUp") {
       setPlayers(prevplayers => prevplayers + 1);
     } else if (event.code === "ArrowDown") {
@@ -131,15 +150,22 @@ export default function App() {
     const rows = [];
     const numColumns = 5;
     const numRows = 5;
-
     for (let row = 0; row < numRows; row++) {
       const cells = [];
       for (let column = 0; column < numColumns; column++) {
-        cells.push(
-          <td>
-            <button onClick={() => gameshow(column + 1, row + 1)}>{normalPoints[row]}</button>
-          </td>
-        );
+        if (usedQuestions.current[column][row] !== true) {
+          cells.push(
+            <td>
+              <button onClick={() => gameshow(column, row)}>{normalPoints[row]}</button>
+            </td>
+          );
+        } else {
+          cells.push(
+            <td>
+              <button className="complete">COMPLETED</button>
+            </td>
+          );
+        }
       }
       rows.push(<tr>{cells}</tr>);
     }
@@ -157,11 +183,11 @@ export default function App() {
       <table border="1" className={started ? "start" : ""}>
         <thead>
           <tr>
-            <th>CATEGORY 1</th>
-            <th>CATEGORY 2</th>
-            <th>CATEGORY 3</th>
-            <th>CATEGORY 4</th>
-            <th>CATEGORY 5</th>
+            <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "CATEGORY 1"}</th>
+            <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "CATEGORY 2"}</th>
+            <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : "CATEGORY 3"}</th>
+            <th className={usedQuestions.current[3].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[3].filter(question => question === true).length === 5 ? "DONE" : "CATEGORY 4"}</th>
+            <th className={usedQuestions.current[4].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[4].filter(question => question === true).length === 5 ? "DONE" : "CATEGORY 5"}</th>
           </tr>
         </thead>
         <tbody>{renderTable()}</tbody>
