@@ -127,11 +127,11 @@ export default function App() {
       if (savedCount.current !== 0) {
         count.current = savedCount.current;
         setTime(60 - count.current);
+        document.getElementById("audio").play();
       }
       for (let i=0; i<document.getElementsByClassName("player").length; i++) {
         document.getElementsByClassName("player")[i].style.display = "block";
       }
-      document.getElementById("audio").play();
       setAnswerer(null);
     }
   }, [paused, count]);
