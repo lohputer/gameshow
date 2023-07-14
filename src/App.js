@@ -18,7 +18,6 @@ export default function App() {
   const answer = useRef(false);
   const count = useRef(0);
   const savedCount = useRef(0);
-  const special = [Math.floor(Math.random() * 5), Math.floor(Math.random() * 5)];
   for (let i=0; i<5; i++) {
     for (let j=0; j<5; j++) {
       usedQuestions.current[i].push(false);
@@ -32,6 +31,7 @@ export default function App() {
       chosen.current = [cat, qn];
       setQuestion(line);
       startQuestion(true);
+      document.getElementById("audio").play();
       setTimeout(function() {
         showcaseQuestion(true);
         const intervalId = setInterval(function() {
@@ -55,6 +55,7 @@ export default function App() {
       event.preventDefault();
       setPaused(prevPaused => !prevPaused);
     } else if (event.code === "ArrowRight") {
+      document.getElementById("audio").pause();
       if (answer.current) {
         document.getElementsByClassName("screen")[0].style.animation = "down 0.5s 1 ease-in-out";
         setTimeout(()=>{
@@ -85,7 +86,7 @@ export default function App() {
         document.getElementsByClassName('option')[0].style.backgroundColor = "#1cf211";
         document.getElementsByClassName('option')[1].style.marginTop = "40px";
         document.getElementsByClassName('option')[1].style.paddingBottom = "40px";
-        document.getElementById('audio').src = "./public/correct.wav";
+        document.getElementById('source').src = "./correct.wav";
         return updatedPoints;
       });
     } else if (event.code === "Minus") {
@@ -97,13 +98,14 @@ export default function App() {
         document.getElementsByClassName('option')[1].style.backgroundColor = "red";
         document.getElementsByClassName('option')[0].style.marginTop = "40px";
         document.getElementsByClassName('option')[0].style.paddingBottom = "40px";
-        document.getElementById('audio').src = "./public/wrong.wav";
+        document.getElementById('source').src = "./wrong.wav";
         return updatedPoints;
       });
     }
   }
   function letanswer(player) {
     setPaused(prevPaused => !prevPaused);
+    document.getElementById("audio").pause();
     for (let i=0; i<document.getElementsByClassName("player").length; i++) {
       if (i !== player) {
         document.getElementsByClassName("player")[i].style.display = "none";
@@ -119,6 +121,7 @@ export default function App() {
   });
   useEffect(() => {
     if (paused) {
+      document.getElementById("audio").pause();
       savedCount.current = count.current;
     } else {
       if (savedCount.current !== 0) {
@@ -128,6 +131,7 @@ export default function App() {
       for (let i=0; i<document.getElementsByClassName("player").length; i++) {
         document.getElementsByClassName("player")[i].style.display = "block";
       }
+      document.getElementById("audio").play();
       setAnswerer(null);
     }
   }, [paused, count]);
@@ -211,7 +215,7 @@ export default function App() {
           <h3>{ !answer.current ? (!timesUp ? (paused ? "🕑 Paused" : `🕑 ${time}`) : "Time's Up!") : ''}</h3>
         </div>
       </div> : ""}
-      <audio id='audio' autoPlay/>
+      <audio id="audio"><source id="source" src="/ticking.wav"></source></audio>
     </>
   );
 }
