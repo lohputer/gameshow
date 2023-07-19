@@ -86,7 +86,9 @@ export default function App() {
         document.getElementsByClassName('option')[0].style.backgroundColor = "#1cf211";
         document.getElementsByClassName('option')[1].style.marginTop = "40px";
         document.getElementsByClassName('option')[1].style.paddingBottom = "40px";
-        document.getElementById('source').src = "./correct.wav";
+        document.getElementById("audio").pause();
+        document.getElementById("audio3").pause();
+        document.getElementById('audio2').play();
         return updatedPoints;
       });
     } else if (event.code === "Minus") {
@@ -98,14 +100,15 @@ export default function App() {
         document.getElementsByClassName('option')[1].style.backgroundColor = "red";
         document.getElementsByClassName('option')[0].style.marginTop = "40px";
         document.getElementsByClassName('option')[0].style.paddingBottom = "40px";
-        document.getElementById('source').src = "./wrong.wav";
+        document.getElementById("audio").pause();
+        document.getElementById("audio2").pause();
+        document.getElementById('audio3').play();
         return updatedPoints;
       });
     }
   }
   function letanswer(player) {
     setPaused(prevPaused => !prevPaused);
-    document.getElementById("audio").pause();
     for (let i=0; i<document.getElementsByClassName("player").length; i++) {
       if (i !== player) {
         document.getElementsByClassName("player")[i].style.display = "none";
@@ -121,8 +124,10 @@ export default function App() {
   });
   useEffect(() => {
     if (paused) {
-      document.getElementById("audio").pause();
       savedCount.current = count.current;
+      document.getElementById("audio").pause();
+      document.getElementById("audio2").pause();
+      document.getElementById("audio3").pause();
     } else {
       if (savedCount.current !== 0) {
         count.current = savedCount.current;
@@ -215,7 +220,9 @@ export default function App() {
           <h3>{ !answer.current ? (!timesUp ? (paused ? "🕑 Paused" : `🕑 ${time}`) : "Time's Up!") : ''}</h3>
         </div>
       </div> : ""}
-      <audio id="audio"><source id="source" src="/ticking.wav"></source></audio>
+      <audio id="audio" src="/ticking.wav"></audio>
+      <audio id="audio2" src="/correct.wav"></audio>
+      <audio id="audio3" src="/wrong.wav"></audio>
     </>
   );
 }
