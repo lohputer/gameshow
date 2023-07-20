@@ -34,7 +34,7 @@ export default function App() {
       document.getElementById("audio").play();
       setTimeout(function() {
         showcaseQuestion(true);
-        const intervalId = setInterval(function() {
+        var intervalId = setInterval(function() {
           setTime(prevTime => prevTime - 1);
           count.current++;
           if (answer.current) {
@@ -93,17 +93,17 @@ export default function App() {
       });
     } else if (event.code === "Minus") {
       setPoints((pointList) => {
-        const updatedPoints = [...pointList];
-        updatedPoints[answerer] -= normalPoints[chosen.current[1]]/2;
-        document.getElementsByClassName('option')[1].style.marginTop = "-10px";
-        document.getElementsByClassName('option')[1].style.paddingBottom = "90px";
-        document.getElementsByClassName('option')[1].style.backgroundColor = "red";
-        document.getElementsByClassName('option')[0].style.marginTop = "40px";
-        document.getElementsByClassName('option')[0].style.paddingBottom = "40px";
-        document.getElementById("audio").pause();
-        document.getElementById("audio2").pause();
-        document.getElementById('audio3').play();
-        return updatedPoints;
+          const updatedPoints = [...pointList];
+          updatedPoints[answerer] -= normalPoints[chosen.current[1]]/2;
+          document.getElementsByClassName('option')[1].style.marginTop = "-10px";
+          document.getElementsByClassName('option')[1].style.paddingBottom = "90px";
+          document.getElementsByClassName('option')[1].style.backgroundColor = "red";
+          document.getElementsByClassName('option')[0].style.marginTop = "40px";
+          document.getElementsByClassName('option')[0].style.paddingBottom = "40px";
+          document.getElementById("audio").pause();
+          document.getElementById("audio2").pause();
+          document.getElementById('audio3').play();
+          return updatedPoints;
       });
     }
   }
@@ -130,9 +130,9 @@ export default function App() {
       document.getElementById("audio3").pause();
     } else {
       if (savedCount.current !== 0) {
-        count.current = savedCount.current;
         setTime(60 - count.current);
         document.getElementById("audio").play();
+        count.current = savedCount.current;
       }
       for (let i=0; i<document.getElementsByClassName("player").length; i++) {
         document.getElementsByClassName("player")[i].style.display = "block";
@@ -195,34 +195,32 @@ export default function App() {
       <table border="1" className={started ? "start" : ""}>
         <thead>
           <tr>
-            <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "CATEGORY 1"}</th>
-            <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "CATEGORY 2"}</th>
-            <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : "CATEGORY 3"}</th>
-            <th className={usedQuestions.current[3].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[3].filter(question => question === true).length === 5 ? "DONE" : "CATEGORY 4"}</th>
+            <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "Tehh FUn cAtGerOy"}</th>
+            <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "declare merica"}</th>
+            <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : "alphabet fun!! (lie)"}</th>
+            <th className={usedQuestions.current[3].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[3].filter(question => question === true).length === 5 ? "DONE" : "art"}</th>
             <th className={usedQuestions.current[4].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[4].filter(question => question === true).length === 5 ? "DONE" : "CATEGORY 5"}</th>
           </tr>
         </thead>
         <tbody>{renderTable()}</tbody>
       </table>
       {visibility ?
-      <>
-      <div className="players">
-        {answerer != null ? <span className="option">✔️</span> : ''}
-        {renderPlayers(players)}
-        {answerer != null ? <span className="option">❌</span> : ''}
-      </div>
-      </>
-      : ''}
+        <div className="players">
+          {answerer != null ? <span className="option">✔️</span> : ''}
+          {renderPlayers(players)}
+          {answerer != null ? <span className="option">❌</span> : ''}
+        </div> : ''}
       {showcased ?   
       <div className="screen">
         <div className="lights">
           <h1>{question}</h1>
+          {chosen.current[0] === 1 && chosen.current[1] === 4 ? <img src="https://m.media-amazon.com/images/I/51i42Ulow3S._AC_UF894,1000_QL80_.jpg" alt="" /> : ""}
           <h3>{ !answer.current ? (!timesUp ? (paused ? "🕑 Paused" : `🕑 ${time}`) : "Time's Up!") : ''}</h3>
         </div>
       </div> : ""}
-      <audio id="audio" src="/ticking.wav"></audio>
-      <audio id="audio2" src="/correct.wav"></audio>
-      <audio id="audio3" src="/wrong.wav"></audio>
+      <audio id="audio" src="./ticking.wav"></audio>
+      <audio id="audio2" src="./correct.wav"></audio>
+      <audio id="audio3" src="./wrong.wav"></audio>
     </>
   );
 }
