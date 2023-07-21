@@ -47,7 +47,7 @@ export default function App() {
         }, 1000);
       }, 1000);
     } catch (error) {
-      console.log('Does not work');
+      console.log(                                                                                                   'Does not work');
     }
   };
   const handleKeyDown = event => {
@@ -198,8 +198,8 @@ export default function App() {
             <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "Tehh FUn cAtGerOy"}</th>
             <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "declare merica"}</th>
             <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : "alphabet fun!! (lie)"}</th>
-            <th className={usedQuestions.current[3].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[3].filter(question => question === true).length === 5 ? "DONE" : "art"}</th>
-            <th className={usedQuestions.current[4].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[4].filter(question => question === true).length === 5 ? "DONE" : "CATEGORY 5"}</th>
+            <th className={usedQuestions.current[3].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[3].filter(question => question === true).length === 5 ? "DONE" : "gemotriyceyt"}</th>
+            <th className={usedQuestions.current[4].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[4].filter(question => question === true).length === 5 ? "DONE" : "oui oui hon"}</th>
           </tr>
         </thead>
         <tbody>{renderTable()}</tbody>

@@ -1,10 +1,10 @@
-Question 1
-Question 2
-Question 3
-Question 4
-Question 5
-Answer 1
-Answer 2
-Answer 3
-Answer 4
-Answer 5
+How many sides does a triangle not have?
+What do you call a shape with 8 sides?
+A shape has 9 sides. What is it?
+What is the interior angle of a enneakaidecagon?
+What is sin(30.51) to 5 s.f.?
+Not 3.
+Octagon
+Nonagon
+162 degrees.
+0.50769
