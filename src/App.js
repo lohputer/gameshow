@@ -66,6 +66,7 @@ export default function App() {
           savedCount.current = 0;
           setTime(60 - count.current);
           answer.current = false;
+          setTimeOver(false);   
         }, 500);
       } else {
         answer.current = true;
@@ -73,38 +74,44 @@ export default function App() {
     } else if (event.code === "ArrowUp") {
       setPlayers(prevplayers => prevplayers + 1);
     } else if (event.code === "ArrowDown") {
-      setPlayers(prevplayers => prevplayers - 1);
+      if (players !== 1) {
+        setPlayers(prevplayers => prevplayers - 1);
+      }
     } else if (event.code === "Tab") {
       event.preventDefault();
       setVisibility(visible => !visible);
     } else if (event.code === "Equal") {
-      setPoints((pointList) => {
-        const updatedPoints = [...pointList];
-        updatedPoints[answerer] += normalPoints[chosen.current[1]];
-        document.getElementsByClassName('option')[0].style.marginTop = "-10px";
-        document.getElementsByClassName('option')[0].style.paddingBottom = "90px";
-        document.getElementsByClassName('option')[0].style.backgroundColor = "#1cf211";
-        document.getElementsByClassName('option')[1].style.marginTop = "40px";
-        document.getElementsByClassName('option')[1].style.paddingBottom = "40px";
-        document.getElementById("audio").pause();
-        document.getElementById("audio3").pause();
-        document.getElementById('audio2').play();
-        return updatedPoints;
-      });
-    } else if (event.code === "Minus") {
-      setPoints((pointList) => {
+      if (answerer != null) {
+        setPoints((pointList) => {
           const updatedPoints = [...pointList];
-          updatedPoints[answerer] -= normalPoints[chosen.current[1]]/2;
-          document.getElementsByClassName('option')[1].style.marginTop = "-10px";
-          document.getElementsByClassName('option')[1].style.paddingBottom = "90px";
-          document.getElementsByClassName('option')[1].style.backgroundColor = "red";
-          document.getElementsByClassName('option')[0].style.marginTop = "40px";
-          document.getElementsByClassName('option')[0].style.paddingBottom = "40px";
+          updatedPoints[answerer] += normalPoints[chosen.current[1]];
+          document.getElementsByClassName('option')[0].style.marginTop = "-10px";
+          document.getElementsByClassName('option')[0].style.paddingBottom = "90px";
+          document.getElementsByClassName('option')[0].style.backgroundColor = "#1cf211";
+          document.getElementsByClassName('option')[1].style.marginTop = "40px";
+          document.getElementsByClassName('option')[1].style.paddingBottom = "40px";
           document.getElementById("audio").pause();
-          document.getElementById("audio2").pause();
-          document.getElementById('audio3').play();
+          document.getElementById("audio3").pause();
+          document.getElementById('audio2').play();
           return updatedPoints;
-      });
+        });
+      }
+    } else if (event.code === "Minus") {
+      if (answerer != null) {
+        setPoints((pointList) => {
+            const updatedPoints = [...pointList];
+            updatedPoints[answerer] -= normalPoints[chosen.current[1]]/2;
+            document.getElementsByClassName('option')[1].style.marginTop = "-10px";
+            document.getElementsByClassName('option')[1].style.paddingBottom = "90px";
+            document.getElementsByClassName('option')[1].style.backgroundColor = "red";
+            document.getElementsByClassName('option')[0].style.marginTop = "40px";
+            document.getElementsByClassName('option')[0].style.paddingBottom = "40px";
+            document.getElementById("audio").pause();
+            document.getElementById("audio2").pause();
+            document.getElementById('audio3').play();
+            return updatedPoints;
+        });
+      }
     }
   }
   function letanswer(player) {
@@ -193,15 +200,17 @@ export default function App() {
         </div>
       </div>
       <table border="1" className={started ? "start" : ""}>
-        <thead>
-          <tr>
-            <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "Tehh FUn cAtGerOy"}</th>
-            <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "declare merica"}</th>
-            <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : "alphabet fun!! (lie)"}</th>
-            <th className={usedQuestions.current[3].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[3].filter(question => question === true).length === 5 ? "DONE" : "gemotriyceyt"}</th>
-            <th className={usedQuestions.current[4].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[4].filter(question => question === true).length === 5 ? "DONE" : "oui oui hon"}</th>
-          </tr>
-        </thead>
+        {document.getElementsByClassName("category").length === 5 ? <h1>Yay the gameshow is over!</h1> :
+            <thead>
+              <tr>
+                <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "Tehh FUn cAtGerOy"}</th>
+                <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "declare merica"}</th>
+                <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : "alphabet fun!! (lie)"}</th>
+                <th className={usedQuestions.current[3].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[3].filter(question => question === true).length === 5 ? "DONE" : "gemotriyceyt"}</th>
+                <th className={usedQuestions.current[4].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[4].filter(question => question === true).length === 5 ? "DONE" : "oui oui hon"}</th>
+              </tr>
+            </thead>
+        }
         <tbody>{renderTable()}</tbody>
       </table>
       {visibility ?

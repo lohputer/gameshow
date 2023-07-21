@@ -6,5 +6,5 @@ What is sin(30.51) to 5 s.f.?
 Not 3.
 Octagon
 Nonagon
-162 degrees.
+161.05 degrees.
 0.50769
