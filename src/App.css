@@ -72,6 +72,8 @@ button:hover {
   animation: up 1s 1 ease-in-out;
   animation-fill-mode: forwards;
   width: calc(100% - 60px);
+  align-items: center;
+  justify-content: center;
 }
 .players {
   display: flex;

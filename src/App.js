@@ -18,7 +18,7 @@ export default function App() {
   const answer = useRef(false);
   const count = useRef(0);
   const savedCount = useRef(0);
-  for (let i=0; i<5; i++) {
+  for (let i=0; i<4; i++) {
     for (let j=0; j<5; j++) {
       usedQuestions.current[i].push(false);
     }
@@ -167,7 +167,7 @@ export default function App() {
   }
   const renderTable = () => {
     const rows = [];
-    const numColumns = 5;
+    const numColumns = 4;
     const numRows = 5;
     for (let row = 0; row < numRows; row++) {
       const cells = [];
@@ -199,20 +199,19 @@ export default function App() {
           <p>Welcome! :D</p>
         </div>
       </div>
-      <table border="1" className={started ? "start" : ""}>
-        {document.getElementsByClassName("category").length === 5 ? <h1>Yay the gameshow is over!</h1> :
-            <thead>
-              <tr>
-                <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "Tehh FUn cAtGerOy"}</th>
-                <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "declare merica"}</th>
-                <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : "alphabet fun!! (lie)"}</th>
-                <th className={usedQuestions.current[3].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[3].filter(question => question === true).length === 5 ? "DONE" : "gemotriyceyt"}</th>
-                <th className={usedQuestions.current[4].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[4].filter(question => question === true).length === 5 ? "DONE" : "oui oui hon"}</th>
-              </tr>
-            </thead>
-        }
-        <tbody>{renderTable()}</tbody>
-      </table>
+      {document.getElementsByClassName("category").length !== 4 &&
+        <table border="1" className={started ? "start" : ""}>
+          <thead>
+            <tr>
+              <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "Foodie Goodies"}</th>
+              <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "GeoSchooler"}</th>
+              <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : "idk what to put here"}</th>
+              <th className={usedQuestions.current[3].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[3].filter(question => question === true).length === 5 ? "DONE" : "idk what"}</th>
+            </tr>
+          </thead>
+          <tbody>{renderTable()}</tbody>
+        </table>
+      } 
       {visibility ?
         <div className="players">
           {answerer != null ? <span className="option">✔️</span> : ''}
@@ -223,7 +222,6 @@ export default function App() {
       <div className="screen">
         <div className="lights">
           <h1>{question}</h1>
-          {chosen.current[0] === 1 && chosen.current[1] === 4 ? <img src="https://m.media-amazon.com/images/I/51i42Ulow3S._AC_UF894,1000_QL80_.jpg" alt="" /> : ""}
           <h3>{ !answer.current ? (!timesUp ? (paused ? "🕑 Paused" : `🕑 ${time}`) : "Time's Up!") : ''}</h3>
         </div>
       </div> : ""}
