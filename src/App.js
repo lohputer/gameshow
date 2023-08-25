@@ -194,8 +194,8 @@ export default function App() {
     <>
       <div className={started ? "start2 header" : "header"}>
         <div className="lights">
-          <h1>THE</h1>
-          <h1>GAME SHOW</h1>
+          <h1>TEACHERS' DAY/教师节</h1>
+          <h1>GAME SHOW/游戏节目</h1>
           <p>Welcome! :D</p>
         </div>
       </div>
@@ -203,8 +203,8 @@ export default function App() {
         <table border="1" className={started ? "start" : ""}>
           <thead>
             <tr>
-              <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "Foodie Goodies"}</th>
-              <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "GeoSchooler"}</th>
+              <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "Food/食物"}</th>
+              <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "Where's That?/这在哪里？"}</th>
               <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : ""}</th>
             </tr>
           </thead>
