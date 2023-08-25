@@ -18,7 +18,7 @@ export default function App() {
   const answer = useRef(false);
   const count = useRef(0);
   const savedCount = useRef(0);
-  for (let i=0; i<4; i++) {
+  for (let i=0; i<3; i++) {
     for (let j=0; j<5; j++) {
       usedQuestions.current[i].push(false);
     }
@@ -27,7 +27,7 @@ export default function App() {
     try {
       const response = await fetch(`${process.env.PUBLIC_URL}/cat${cat+1}.txt`);
       const data = await response.text();
-      const line = data.split('\n')[qn];
+      const line = data.split('\n')[qn]; 
       chosen.current = [cat, qn];
       setQuestion(line);
       startQuestion(true);
@@ -167,7 +167,7 @@ export default function App() {
   }
   const renderTable = () => {
     const rows = [];
-    const numColumns = 4;
+    const numColumns = 3;
     const numRows = 5;
     for (let row = 0; row < numRows; row++) {
       const cells = [];
@@ -199,14 +199,13 @@ export default function App() {
           <p>Welcome! :D</p>
         </div>
       </div>
-      {document.getElementsByClassName("category").length !== 4 &&
+      {document.getElementsByClassName("category").length !== 3 &&
         <table border="1" className={started ? "start" : ""}>
           <thead>
             <tr>
               <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "Foodie Goodies"}</th>
               <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "GeoSchooler"}</th>
-              <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : "idk what to put here"}</th>
-              <th className={usedQuestions.current[3].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[3].filter(question => question === true).length === 5 ? "DONE" : "idk what"}</th>
+              <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : ""}</th>
             </tr>
           </thead>
           <tbody>{renderTable()}</tbody>
@@ -221,7 +220,8 @@ export default function App() {
       {showcased ?   
       <div className="screen">
         <div className="lights">
-          <h1>{question}</h1>
+          <h1>{question.split("!!")[0]}</h1>
+          <h1>{question.split("!!")[1]}</h1>
           <h3>{ !answer.current ? (!timesUp ? (paused ? "🕑 Paused" : `🕑 ${time}`) : "Time's Up!") : ''}</h3>
         </div>
       </div> : ""}
