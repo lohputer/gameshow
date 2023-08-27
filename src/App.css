@@ -64,7 +64,6 @@ button:hover {
   color: white;
   animation: up2 1s 1 ease-in-out;
   box-shadow: 0 0 15px #fa441b;
-  animation-fill-mode: forwards;
   width: calc(100% - 130px);
 }
 .start2 {
@@ -164,7 +163,7 @@ button:hover {
   background-color: #0f06bf;
 }
 img {
-  width: 100px;
+  width: 200px;
   aspect-ratio: 1/1;
   border-radius: 5px;
   padding: 5px 0;
