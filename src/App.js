@@ -12,6 +12,7 @@ export default function App() {
   const [visibility, setVisibility] = useState(true);
   const [answerer, setAnswerer] = useState(null);
   const [points, setPoints] = useState([0]);
+  const [src, setSrc] = useState("");
   const chosen = useRef([0, 0]);
   const usedQuestions = useRef([[], [], [], [], []]);
   const normalPoints = [100, 200, 400, 800, 1000];
@@ -29,6 +30,9 @@ export default function App() {
       const data = await response.text();
       const line = data.split('\n')[qn]; 
       chosen.current = [cat, qn];
+      if (cat === 1) {
+        setSrc(`./images/image${qn+1}.jpeg`);
+      }
       setQuestion(line);
       startQuestion(true);
       document.getElementById("audio").play();
@@ -67,6 +71,7 @@ export default function App() {
           setTime(60 - count.current);
           answer.current = false;
           setTimeOver(false);   
+          setSrc("");
         }, 500);
       } else {
         answer.current = true;
@@ -205,7 +210,7 @@ export default function App() {
             <tr>
               <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "Food/食物"}</th>
               <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "Where's That?/这在哪里？"}</th>
-              <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : ""}</th>
+              <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : "Multi-Cultural/多元种族"}</th>
             </tr>
           </thead>
           <tbody>{renderTable()}</tbody>
@@ -222,6 +227,7 @@ export default function App() {
         <div className="lights">
           <h1>{question.split("!!")[0]}</h1>
           <h1>{question.split("!!")[1]}</h1>
+          {src !== "" && <img src={src}></img>}
           <h3>{ !answer.current ? (!timesUp ? (paused ? "🕑 Paused" : `🕑 ${time}`) : "Time's Up!") : ''}</h3>
         </div>
       </div> : ""}
