@@ -174,7 +174,7 @@ export default function App() {
   }
   const renderTable = () => {
     const rows = [];
-    const numColumns = 3;
+    const numColumns = 4;
     const numRows = 5;
     for (let row = 0; row < numRows; row++) {
       const cells = [];
@@ -206,17 +206,24 @@ export default function App() {
           <p>Welcome! :D</p>
         </div>
       </div>
-      {document.getElementsByClassName("category").length !== 3 &&
+      {document.getElementsByClassName("category").length !== 4 ?
         <table border="1" className={started ? "start" : ""}>
           <thead>
             <tr>
               <th className={usedQuestions.current[0].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[0].filter(question => question === true).length === 5 ? "DONE" : "Food/食物"}</th>
               <th className={usedQuestions.current[1].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[1].filter(question => question === true).length === 5 ? "DONE" : "Where's That?/这在哪里？"}</th>
               <th className={usedQuestions.current[2].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[2].filter(question => question === true).length === 5 ? "DONE" : "Who's That?/他是谁？"}</th>
+              <th className={usedQuestions.current[3].filter(question => question === true).length === 5 ? "category" : ""}>{usedQuestions.current[3].filter(question => question === true).length === 5 ? "DONE" : "Random Facts/随机事实"}</th>
             </tr>
           </thead>
           <tbody>{renderTable()}</tbody>
         </table>
+      : 
+      <div className="screen">
+        <div className="lights">
+          <h1>The End/结束</h1>
+        </div>
+      </div>
       } 
       {visibility ?
         <div className="players">
@@ -229,7 +236,7 @@ export default function App() {
         <div className="lights">
           <h1>{question.split("!!")[0]}</h1>
           <h1>{question.split("!!")[1]}</h1>
-          {src !== "" && <img src={src}></img>}
+          {src !== "" && <img src={src} alt=""></img>}
           <h3>{ !answer.current ? (!timesUp ? (paused ? "🕑 Paused" : `🕑 ${time}`) : "Time's Up!") : ''}</h3>
         </div>
       </div> : ""}

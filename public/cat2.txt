@@ -7,4 +7,4 @@ Classrooms/课室
 Library/图书馆
 Computer Lab/电脑室
 EP3 Shed
-Fish Tank
+Fish Tank/鱼缸
