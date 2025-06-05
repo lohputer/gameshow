@@ -159,9 +159,6 @@ export default function App() {
     for (let i = points.length; i<ppl; i++) {
       setPoints(pointlist => pointlist[i] = 0);
     }
-    for (let i=ppl; i<points.length; i++) {
-      setPoints(pointlist => pointlist.pop());
-    }
     for (let i = 0; i < ppl; i++) {
       divs.push(
         <div className="player">
@@ -201,8 +198,7 @@ export default function App() {
     <>
       <div className={started ? "start2 header" : "header"}>
         <div className="lights">
-          <h1>TEACHERS' DAY/教师节</h1>
-          <h1>GAME SHOW/游戏节目</h1>
+          <h1>JEOAREAPRY</h1>
           <p>Welcome! :D</p>
         </div>
       </div>
@@ -221,7 +217,7 @@ export default function App() {
       : 
       <div className="screen">
         <div className="lights">
-          <h1>The End/结束</h1>
+          <h1>The End</h1>
         </div>
       </div>
       } 
